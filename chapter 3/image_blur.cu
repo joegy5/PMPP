@@ -54,7 +54,7 @@ void imageBlur(unsigned char* Pin_h, unsigned char* Pout_h, int n, int m) {
 }
 
 int main() {
-    unsigned char Pin[3][3] = {{1, 2, 3}, {2, 3, 4}, {5, 6, 7}};
+    unsigned char Pin[3][3] = {{1, 2, 3}, {2, 3, 4}, {5, 6, 7 }};
     unsigned char Pout[3][3]; 
 
     imageBlur((unsigned char*)Pin, (unsigned char*)Pout, 3, 3); 
