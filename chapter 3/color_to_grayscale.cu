@@ -36,6 +36,7 @@ void colorToGrayscale(unsigned char* Pin_h, unsigned char* Pout_h, int n, int m)
     cudaMemcpy(Pin_d, Pin_h, size * 3, cudaMemcpyHostToDevice);
 
     // Launch kernel
+    // NOTE: n is the height (corresponding to y dimension), m is the width (corresponding to x dimension)
     // order: x, y, z (least to greatest dimension); greatest to least dimension order would be z, y, x
     dim3 dimGrid(ceil(m / (16.0)), ceil(n / 16.0), 1); // ceil(m / 16) blocks in x dimension, ceil(n / 16) blocks in y dimension, 1 block ion z dimension (only using x and y dimensions)
     dim3 dimBlock(16, 16, 1); // 16 threads in x dimension as well as y dimension, 1 thread in z dimension (only using x and y dimensions)
@@ -49,7 +50,7 @@ void colorToGrayscale(unsigned char* Pin_h, unsigned char* Pout_h, int n, int m)
 }
 
 int main() {
-    unsigned char Pin[2][2][3] = {{{1, 1, 1}, {1, 1, 1}},{{1, 1, 1}, {1, 1, 1}}};
+    unsigned char Pin[2][2][3] = {{{2, 2, 2}, {2, 2, 2}},{{2, 2, 2}, {2, 2, 2}}};
     unsigned char Pout[2][2]; 
     // Pin and Pout arrays are contiguous in memory -> can cast them as unsigned char* 
     colorToGrayscale((unsigned char*) Pin, (unsigned char*) Pout, 2, 2); 
