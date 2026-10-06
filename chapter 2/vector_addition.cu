@@ -60,13 +60,19 @@ void vecAdd(float* A_h, float* B_h, float* C_h, int n) {
 }
 
 int main() {
-    float A[5] = {1, 2, 3, 4, 5};
-    float B[5] = {2, 3, 4, 5, 6};
-    float C[5]; 
-    int n = 5;
-    vecAdd(A, B, C, n);
-    for(int i = 0; i < n; i++) {
-        cout << C[i] << " "; 
+    int N = 1 << 24; 
+    float* A = (float*)malloc(N * sizeof(float));
+    float* B = (float*)malloc(N * sizeof(float));
+    float* C = (float*)malloc(N * sizeof(float)); 
+
+    for(int i = 0; i < N; i++) {
+        A[i] = i; 
+        B[i] = 2 * i;
     }
-    cout << endl; 
+
+    vecAdd(A, B, C, N);
+    // for(int i = 0; i < n; i++) {
+    //     cout << C[i] << " "; 
+    // }
+    // cout << endl; 
 }
