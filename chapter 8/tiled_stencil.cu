@@ -40,9 +40,6 @@ __global__ void tiled_stencil_kernel(float* I, float* O, int l, int m, int n) {
 
     // load value at this position into shared memory only if this position is within I bounds
     if(plane >= 0 && plane < l && row >= 0 && row < m && col >= 0 && col < n) {
-        if(blockIdx.z == 0 && blockIdx.y == 1 && blockIdx.x == 0) {
-            printf("thread coord (%d, %d, %d), block coord (%d, %d, %d), global coord (%d, %d, %d), value: %f\n", threadIdx.z, threadIdx.y, threadIdx.x, blockIdx.z, blockIdx.y, blockIdx.x, plane, row, col, I[plane * m * n + row * n + col]);
-        }
         in_tile[threadIdx.z][threadIdx.y][threadIdx.x] = I[plane * m * n + row * n + col];
     }
     __syncthreads(); // read-after-write dependency
